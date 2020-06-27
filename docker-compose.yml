@@ -1,0 +1,26 @@
+version: '3'
+
+services: 
+  zookeeper:
+    image: wurstmeister/zookeeper
+    container_name: Zookeeper 
+    ports:
+      - "2181:2181"
+
+  Kafka:
+    image: rajeshdocker2020/kafka-aws-cli:latest
+    container_name: Kafka 
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: localhost
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_CREATE_TOPICS: "test:1:1:compact"
+      # AWS_ACCESS_KEY_ID: AKIAZGNSJUMNTZUIWDYO
+      # AWS_SECRET_ACCESS_KEY: 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
+      # PATH_OF_FILE: s3://rajesh-test-buck/employee_2_20180123.json
+  Mysql:
+    image: rajeshdocker2020/mysql-with-trans:latest
+    container_name: Mysql
+    ports:
+      - "3300:3300"
